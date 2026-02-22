@@ -89,6 +89,57 @@ a {
   font-weight: 700;
 }
 
+.auth-gate {
+  min-height: calc(100vh - 2.5rem);
+  display: grid;
+  place-items: center;
+}
+
+.auth-card {
+  width: min(92vw, 390px);
+  border: 2px solid var(--line);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+.auth-card h1 {
+  margin: 0 0 0.55rem;
+  font-size: 1.6rem;
+}
+
+.auth-card p {
+  margin: 0 0 0.75rem;
+}
+
+.auth-card label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.auth-card input {
+  width: 100%;
+  border: 2px solid var(--line);
+  padding: 0.58rem;
+  background: #fff;
+  font: inherit;
+}
+
+.auth-card button {
+  width: 100%;
+  margin-top: 0.8rem;
+  cursor: pointer;
+}
+
+.auth-error {
+  min-height: 1.2rem;
+  margin-top: 0.6rem;
+  color: #b3261e;
+  font-weight: 700;
+}
+
 main,
 .site-footer {
   max-width: 1120px;

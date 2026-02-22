@@ -16,7 +16,20 @@
     <div class="bg-orb orb-a" aria-hidden="true"></div>
     <div class="bg-orb orb-b" aria-hidden="true"></div>
 
-    <header class="site-header">
+    <section id="auth-gate" class="auth-gate">
+      <form id="auth-form" class="auth-card">
+        <h1>beyformation</h1>
+        <p>Enter login details to view the site.</p>
+        <label for="auth-user">Username</label>
+        <input id="auth-user" name="user" autocomplete="username" required />
+        <label for="auth-pass">Password</label>
+        <input id="auth-pass" name="pass" type="password" autocomplete="current-password" required />
+        <button type="submit" class="btn btn-primary">Unlock</button>
+        <p id="auth-error" class="auth-error" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <header class="site-header protected">
       <a href="#" class="brand">beyformation</a>
       <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
         Menu
@@ -30,7 +43,7 @@
       </nav>
     </header>
 
-    <main>
+    <main class="protected">
       <section id="overview" class="hero reveal">
         <p class="eyebrow">Updated: February 19, 2026</p>
         <h1>Everything essential about BEYBLADE X, in one page.</h1>
@@ -294,13 +307,44 @@
       </section>
     </main>
 
-    <footer class="site-footer reveal">
+    <footer class="site-footer reveal protected">
       <h2>beyformation</h2>
       <p>This page summarizes public information and may lag behind future product/event updates.</p>
       <p>© <span id="year"></span> Fan reference page</p>
     </footer>
 
     <script>
+      const AUTH_USER = "beyformation";
+      const AUTH_PASS = "letitrip321";
+      const authGate = document.getElementById("auth-gate");
+      const authForm = document.getElementById("auth-form");
+      const authError = document.getElementById("auth-error");
+      const protectedNodes = document.querySelectorAll(".protected");
+
+      function setProtectedVisible(visible) {
+        protectedNodes.forEach((node) => {
+          node.style.display = visible ? "" : "none";
+        });
+        authGate.style.display = visible ? "none" : "grid";
+      }
+
+      setProtectedVisible(false);
+
+      authForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(authForm);
+        const user = String(formData.get("user") || "").trim();
+        const pass = String(formData.get("pass") || "");
+
+        if (user === AUTH_USER && pass === AUTH_PASS) {
+          authError.textContent = "";
+          setProtectedVisible(true);
+          return;
+        }
+
+        authError.textContent = "Incorrect username or password.";
+      });
+
       const menuToggle = document.getElementById("menu-toggle");
       const siteNav = document.getElementById("site-nav");
       const revealNodes = document.querySelectorAll(".reveal");
