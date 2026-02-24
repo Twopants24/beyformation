@@ -252,6 +252,26 @@ h1 {
   letter-spacing: 0.06em;
 }
 
+#jaxon-toggle-card {
+  cursor: pointer;
+}
+
+.tap-note {
+  margin: 0.45rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.jaxon-anim-target {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  will-change: opacity, transform;
+}
+
+#jaxon-toggle-card.is-swapping .jaxon-anim-target {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
 .card a {
   display: inline-block;
   margin-top: 0.7rem;

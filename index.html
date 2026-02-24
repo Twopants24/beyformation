@@ -196,12 +196,19 @@
             <p class="cx-line"><strong>CX-era Bey:</strong> HellsReaper T4-70K (ヘルズリーパーT4-70K).</p>
             <a href="https://beyblade.takaratomy.co.jp/anime/character/chara02.html" target="_blank" rel="noreferrer">Official Profile</a>
           </article>
-          <article class="card">
-            <img class="char-photo" src="https://beyblade.takaratomy.co.jp/anime/character/_image/chara_ekusu_chara08.png" alt="Jaxon Cross (Kurogane Ekusu)" loading="lazy" />
+          <article class="card" id="jaxon-toggle-card">
+            <img
+              class="char-photo jaxon-anim-target"
+              id="jaxon-photo"
+              src="https://beyblade.takaratomy.co.jp/anime/character/_image/chara_ekusu_chara08.png"
+              alt="Jaxon Cross (Kurogane Ekusu)"
+              loading="lazy"
+            />
             <p class="kicker">Team Persona</p>
-            <h3>Jaxon Cross (Kurogane Ekusu)</h3>
-            <p>Bey: DranSword / DranDagger / DranBuster. Birthday shown on official profile: January 10.</p>
-            <p class="cx-line"><strong>CX-era Bey:</strong> DranBrave S6-60V (ドランブレイブS6-60V).</p>
+            <h3 id="jaxon-name" class="jaxon-anim-target">Jaxon Cross (Kurogane Ekusu)</h3>
+            <p id="jaxon-main-line" class="jaxon-anim-target">Bey: DranSword / DranDagger / DranBuster. Birthday shown on official profile: January 10.</p>
+            <p class="cx-line jaxon-anim-target" id="jaxon-cx-line"><strong>CX-era Bey:</strong> DranBrave S6-60V (ドランブレイブS6-60V).</p>
+            <p class="tap-note">Tap card to switch with Blader X</p>
             <a href="https://beyblade.takaratomy.co.jp/anime/character/chara01.html" target="_blank" rel="noreferrer">Official Profile</a>
           </article>
           <article class="card">
@@ -343,6 +350,46 @@
         }
 
         authError.textContent = "Incorrect username or password.";
+      });
+
+      const jaxonCard = document.getElementById("jaxon-toggle-card");
+      const jaxonPhoto = document.getElementById("jaxon-photo");
+      const jaxonName = document.getElementById("jaxon-name");
+      const jaxonMainLine = document.getElementById("jaxon-main-line");
+      const jaxonCxLine = document.getElementById("jaxon-cx-line");
+      let showBladerX = false;
+      let jaxonBusy = false;
+
+      function swapJaxonState(nextBladerX) {
+        if (nextBladerX) {
+          jaxonPhoto.src = "https://beyblade.takaratomy.co.jp/anime/character/_image/chara_ekusu_chara09.png";
+          jaxonPhoto.alt = "Blader X (Masked X)";
+          jaxonName.textContent = "Blader X (Masked X)";
+          jaxonMainLine.textContent =
+            "Alias form used in the tower scene. Same blader identity as Jaxon Cross.";
+          jaxonCxLine.innerHTML = "<strong>Signature Bey:</strong> DranBrave S6-60V (ドランブレイブS6-60V).";
+          return;
+        }
+
+        jaxonPhoto.src = "https://beyblade.takaratomy.co.jp/anime/character/_image/chara_ekusu_chara08.png";
+        jaxonPhoto.alt = "Jaxon Cross (Kurogane Ekusu)";
+        jaxonName.textContent = "Jaxon Cross (Kurogane Ekusu)";
+        jaxonMainLine.textContent =
+          "Bey: DranSword / DranDagger / DranBuster. Birthday shown on official profile: January 10.";
+        jaxonCxLine.innerHTML = "<strong>CX-era Bey:</strong> DranBrave S6-60V (ドランブレイブS6-60V).";
+      }
+
+      jaxonCard.addEventListener("click", (event) => {
+        if (event.target.closest("a") || jaxonBusy) return;
+        jaxonBusy = true;
+        showBladerX = !showBladerX;
+        jaxonCard.classList.add("is-swapping");
+
+        window.setTimeout(() => {
+          swapJaxonState(showBladerX);
+          jaxonCard.classList.remove("is-swapping");
+          jaxonBusy = false;
+        }, 200);
       });
 
       const menuToggle = document.getElementById("menu-toggle");
